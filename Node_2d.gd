@@ -1,5 +1,5 @@
 extends Node2D
-var sprite
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 var apple = preload("res://rigid_body_2d.tscn")
 var banan=preload("res://rigid_body_2dban.tscn")
 var bomb=preload("res://rigid_body_2dbomba.tscn")
@@ -11,9 +11,16 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if hp <= 0:
-		get_tree().quit()
+		get_tree().change_scene_to_file("res://styrt_menushka.tscn")
 	$Label.text = "Hp: "+str(hp)
 	$Label2.text="Count: "+str(count)
+	if Input.is_action_just_pressed("esc"):
+		get_tree().change_scene_to_file("res://styrt_menushka.tscn")
+	if get_viewport().get_mouse_position()!=null:
+		$AnimatedSprite2D.position=get_viewport().get_mouse_position()
+	if Input.is_action_just_pressed("kn"):
+		sprite.play("hosh")	
+		pass
 
 func take_damage() -> void:
 	hp -= 1
@@ -27,14 +34,14 @@ func _on_timer_timeout() -> void:
 		var fr=apple.instantiate()
 		fr.suu.connect(Chet)
 		add_child(fr)
-		fr.sprite.position=Vector2(randf_range(100,900),717.0)
+		fr.sprite.position=Vector2(randf_range(100,900),717)
 	if k==2:
 		var gf=banan.instantiate()
 		gf.zov.connect(Chet)
 		add_child(gf)
-		gf.sprite.position=Vector2(randf_range(100,900),717.0)
+		gf.sprite.position=Vector2(randf_range(100,900),717)
 	if k==3:
 		var hj=bomb.instantiate()
 		add_child(hj)
-		hj.sprite.position=Vector2(randf_range(100,900),717.0)
+		hj.sprite.position=Vector2(randf_range(100,900),717)
 		hj.dhg.connect(take_damage)
