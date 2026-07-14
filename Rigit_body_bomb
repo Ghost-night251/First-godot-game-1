@@ -1,22 +1,17 @@
 extends RigidBody2D
 signal dhg
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+var v = false
 
-var sprite
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	sprite = $Sprite2D
+	sprite = $AnimatedSprite2D
 	apply_central_impulse(Vector2(0,-1000))
-	pass # Replace with function body.
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+	
 func _process(delta: float) -> void:
 	pass
-
-#func take_damage() -> void:
-#	hp -= 1
 
 func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if Input.is_action_pressed("kn"):
 		dhg.emit()
-		queue_free()
+		sprite.play("default")
