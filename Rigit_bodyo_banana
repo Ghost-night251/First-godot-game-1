@@ -1,10 +1,10 @@
 extends RigidBody2D
 signal zov
-
-var sprite
+var bl2=true
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	sprite = $Sprite2D
+	#sprite = $Sprite2D
 	apply_central_impulse(Vector2(0,-1000))
 	pass # Replace with function body.
 
@@ -16,5 +16,7 @@ func _process(delta: float) -> void:
 
 func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if Input.is_action_pressed("kn"):
-		zov.emit()
-		queue_free()
+		if bl2==true:
+			zov.emit()
+			bl2=false
+		sprite.play("banan_dance")
